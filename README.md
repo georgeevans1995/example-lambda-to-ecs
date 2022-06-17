@@ -1,14 +1,31 @@
-# Welcome to your CDK TypeScript project
+# Example Run Lambda like tasks in ECS Fargate 
 
-This is a blank project for CDK development with TypeScript.
+This repo is to demo how simple it is to use ECS Fargate to replace longer running lambda functions. To read more about this process please read the corresponding blog post.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+[https://www.gravitywell.co.uk/insights/using-ecs-tasks-on-aws-fargate-to-replace-lambda-functions/](https://www.gravitywell.co.uk/insights/using-ecs-tasks-on-aws-fargate-to-replace-lambda-functions/)
 
-## Useful commands
+## Setup this project 
+- Find and replace all instances of `ACCOUNT_ID` with your AWS account ID
+- `yarn install`
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+## Testing/running functions locally
+For the purpose of this repository, you can test the runtim code by runnign the commands:
+- `yarn invoke:js-example` - to run the example Javascript file
+- `yarn invoke:ts-example` - to run the example Typescript file with esbuild
+
+## Deploying your infrasctuture
+The project uses AWS CDK to provision all the required infrastructure. To deploy the infrastructure run: 
+- `yarn cdk deply ExampleLambdaToEcsStack`
+
+## Deploy your code
+The deployment of code is separated out so that you can deploy infrastructure and code separately. In the repo there are 2 ways to deploy you code.
+
+To deploy the Javascript handler example run:
+- `yarn deploy:js`
+
+To deploy the Typescript handler example run:
+- `yarn deploy:ts`
+
+
+## What isn't in this repo
+There is a file name `tidy-up-ecs-tasks.ts`. This is an example of a lambda function that could be used to stop any ECS tasks that have been running too long, too avoid paying huge AWS costs on tasks that do not shut down correctly. This repo does not provide any infrastructure for the lambda function or the event bridge cron schedule.

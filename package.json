@@ -8,20 +8,29 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "invoke:js-example": "node src/example-task.js",
+    "invoke:ts-example": "esbuild src/esbuild-example-task.ts --bundle --platform=node --outfile=.esbuild/esbuild-example-task.js && node .esbuild/esbuild-example-task.js",
+    "deploy:js": "sh scripts/deploy-js-docker.sh",
+    "deploy:ts": "sh scripts/deploy-ts-docker.sh"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.97",
     "@types/jest": "^27.4.1",
     "@types/node": "10.17.27",
+    "aws-cdk": "2.23.0",
+    "esbuild": "^0.14.39",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
-    "aws-cdk": "2.23.0",
-    "ts-node": "^10.7.0",
+    "ts-node": "^10.8.1",
     "typescript": "~3.9.7"
   },
   "dependencies": {
     "aws-cdk-lib": "2.23.0",
+    "aws-lambda": "^1.0.7",
+    "aws-sdk": "^2.1139.0",
     "constructs": "^10.0.0",
+    "moment": "^2.29.3",
     "source-map-support": "^0.5.21"
   }
 }

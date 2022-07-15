@@ -126,7 +126,7 @@ export class ExampleLambdaToEcsStack extends Stack {
 
     // get an email if youre alarms are triggered
     topic.addSubscription(
-      new aws_sns_subscriptions.EmailSubscription("george@gravitywell.co.uk")
+      new aws_sns_subscriptions.EmailSubscription("example@email-address.co.uk")
     );
 
     // Use some maths to compare the total provisioned cpu vs the used cpu 

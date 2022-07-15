@@ -1,14 +1,13 @@
-import { Handler, Context } from "aws-lambda";
 import { ECS } from "aws-sdk";
 import * as moment from "moment";
 
 /**
  * Tidy up hanging jobs
+ * currently shuts it down if its been running longer the 60 minutes
  *
  * @param event
  */
-
-export const handler: Handler = async (event: any, context: Context) => {
+export const handler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   const ecs = new ECS();

@@ -1,4 +1,4 @@
-*.js
+
 !jest.config.js
 *.d.ts
 node_modules
@@ -7,5 +7,4 @@ node_modules
 .cdk.staging
 cdk.out
 
-!src/*.js
 .esbuild

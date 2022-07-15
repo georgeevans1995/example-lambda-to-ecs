@@ -17,14 +17,14 @@ For the purpose of this repository, you can test the runtime code by running the
 The project uses AWS CDK to provision all the required infrastructure. To deploy the infrastructure run: 
 - `yarn cdk deploy ExampleLambdaToEcsStack`
 
-## Deploy your code
+## Deploy your docker code
 The deployment of code is separated out so that you can deploy infrastructure and code separately. In the repo there are 2 ways to deploy you code.
 
 To deploy the Javascript handler example run:
-- `yarn deploy:js`
+- `yarn deploy:docker:js`
 
 To deploy the Typescript handler example run:
-- `yarn deploy:ts`
+- `yarn deploy:docker:ts`
 
 
 ## What isn't in this repo

@@ -71,7 +71,7 @@ export class ExampleLambdaToEcsStack extends Stack {
       },
       logging: ecs.LogDriver.awsLogs({ streamPrefix: `${props?.stackName}-container-logs` })
     });
-    
+
     // give the lambda functions access to trigger the tasks
     const lambdaRole = new iam.Role(this, "lambd-role", {
       assumedBy: new iam.AnyPrincipal(),
@@ -85,13 +85,18 @@ export class ExampleLambdaToEcsStack extends Stack {
           new iam.PolicyStatement({
             effect: iam.Effect.ALLOW,
             resources: ["*"],
-            actions: ["ecs:ListTaskDefinitions", "iam:PassRole"]
+            actions: ["iam:PassRole"]
+          }),
+          new iam.PolicyStatement({
+            effect: iam.Effect.ALLOW,
+            resources: [cluster.clusterArn],
+            actions: ["ecs:DescribeTasks"]
           })
           ]
         })
       }
     });
-    
+
     // get the subnet id values from the vpc
     const subnets = vpc.selectSubnets({
       subnetType: ec2.SubnetType.PRIVATE_WITH_NAT
@@ -103,7 +108,7 @@ export class ExampleLambdaToEcsStack extends Stack {
       runtime: aws_lambda.Runtime.NODEJS_14_X,
       handler: "trigger-task.handler",
       environment: {
-        ECS_TASK_FAMILY: ECSTaskRunner.family,
+        ECS_TASK_ARN: ECSTaskRunner.taskDefinitionArn,
         ECS_CLUSTER_ARN: cluster.clusterArn,
         SUBNET_IDS: subnets.map(sub => sub.subnetId).join(","),
         ECS_CONTAINER_NAME: container.containerName
